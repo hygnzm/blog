@@ -1714,3 +1714,271 @@ svg {
     line-height: 1.8;
   }
 }
+
+/* Paper notes keep diagrams and examples alongside the paragraph they explain. */
+.markdown-body blockquote {
+  color: #56654b;
+}
+.paper-figure {
+  margin: 30px 0;
+}
+.diagram-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid #e5eadd;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  cursor: zoom-in;
+}
+.diagram-open:hover {
+  border-color: #a8b69a;
+}
+.paper-figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+}
+.paper-figure figcaption {
+  margin-top: 10px;
+  color: #647058;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.paper-equation {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 15px 18px;
+  margin: 22px 0;
+  background: #f7f8f3;
+  font-family: "Cambria Math", Cambria, "Microsoft YaHei", serif;
+  color: #384630;
+  white-space: nowrap;
+}
+.paper-demo {
+  min-width: 0;
+  padding: 24px;
+  margin: 28px 0;
+  background: #fafbf7;
+  border: 1px solid #e0e6d7;
+  border-radius: 12px;
+}
+.paper-demo h3 {
+  margin: 0 0 18px;
+  font-size: 20px;
+}
+.demo-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  font-size: 16px;
+}
+.demo-controls label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.demo-controls button,
+.demo-controls select,
+.demo-position-buttons button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #cbd5bf;
+  border-radius: 7px;
+  background: #fff;
+  color: #425238;
+}
+.demo-check {
+  min-height: 44px;
+  cursor: pointer;
+}
+.demo-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: #327b59;
+}
+.paper-demo .demo-current {
+  margin: 18px 0 12px;
+  font-size: 15px;
+  color: #526347;
+}
+.demo-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.paper-demo table {
+  display: table;
+  width: 100%;
+  margin: 8px 0 16px;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.paper-demo[data-demo="attention"] table {
+  min-width: 520px;
+}
+.paper-demo[data-demo="attention"] td:nth-child(2) {
+  white-space: nowrap;
+}
+.demo-scroll-hint {
+  display: none;
+}
+.paper-demo th,
+.paper-demo td {
+  white-space: normal;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 1px solid #e1e7d9;
+  vertical-align: middle;
+}
+.paper-demo th {
+  color: #46563c;
+  background: #f0f4e9;
+  font-weight: 500;
+}
+.demo-masked {
+  color: #757c6d;
+  background: #f0f1ed;
+}
+.weight-value {
+  display: block;
+}
+.weight-track {
+  display: block;
+  min-width: 70px;
+  height: 6px;
+  margin-top: 7px;
+  background: #e2e8da;
+}
+.weight-track > span {
+  display: block;
+  height: 100%;
+  background: #327b59;
+}
+.paper-demo .demo-result {
+  color: #354b2e;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+.paper-demo .demo-note {
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #65705b;
+}
+.demo-position-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.demo-position-buttons button {
+  padding: 8px 5px;
+  font-size: 14px;
+}
+.demo-position-buttons span,
+.demo-position-buttons strong {
+  display: block;
+}
+.demo-position-buttons strong {
+  font-weight: 500;
+}
+.demo-position-buttons button[aria-pressed="true"] {
+  color: #fff;
+  border-color: #327b59;
+  background: #327b59;
+}
+.demo-sentence {
+  display: flex;
+  gap: 15px;
+  margin-top: 22px;
+}
+.demo-sentence > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+}
+.demo-sentence strong {
+  font-size: 18px;
+  font-weight: 500;
+}
+.demo-sentence span {
+  font-size: 14px;
+  color: #67755c;
+}
+.demo-sentence .observed {
+  background: #eaf1e2;
+  border-radius: 6px;
+}
+.position-value {
+  color: #215d43;
+  font-weight: 500;
+}
+.diagram-dialog {
+  width: min(96vw, 1200px);
+  max-width: calc(100vw - 20px);
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid #c8d3bc;
+  border-radius: 12px;
+  background: #fff;
+  color: #425238;
+}
+.diagram-dialog::backdrop {
+  background: #172112b3;
+}
+.diagram-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 18px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.diagram-toolbar button {
+  min-height: 44px;
+  padding: 8px 12px;
+  color: #215d43;
+  background: #eef3e8;
+  border-radius: 6px;
+}
+.diagram-scroll {
+  max-height: calc(100dvh - 125px);
+  overflow: auto;
+  padding: 12px;
+}
+.diagram-scroll img {
+  display: block;
+  max-width: none;
+  height: auto;
+  margin: auto;
+}
+@media (max-width: 600px) {
+  .paper-demo .demo-scroll-hint {
+    display: block;
+    margin: 8px 0;
+    color: #65705b;
+    font-size: 14px;
+  }
+  .paper-demo {
+    padding: 18px 14px;
+  }
+  .paper-demo th,
+  .paper-demo td {
+    padding: 9px 7px;
+  }
+  .demo-controls {
+    gap: 8px 14px;
+  }
+  .demo-sentence {
+    gap: 8px;
+  }
+  .demo-sentence > div {
+    padding: 6px 10px;
+  }
+}

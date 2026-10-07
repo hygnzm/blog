@@ -23,9 +23,8 @@ import {
   Braces,
   FileText,
 } from "lucide-vue-next";
-import { marked } from "marked";
-import DOMPurify from "dompurify";
 import { categoryDefinitions, getContent } from "./content";
+import ArticleContent from "./components/ArticleContent.vue";
 
 const categories = ref(categoryDefinitions.map((item) => ({ ...item, count: 0 })));
 const categoryIcons = { backend: Server, agent: Bot, papers: BookOpen, career: BriefcaseBusiness };
@@ -69,9 +68,6 @@ const dateError = computed(() =>
   from.value && to.value && from.value > to.value
     ? "开始日期不能晚于结束日期"
     : "",
-);
-const body = computed(() =>
-  DOMPurify.sanitize(marked.parse(article.value?.content || "", { gfm: true })),
 );
 const dateLabel = (date) => date?.replaceAll("-", ".");
 
@@ -604,7 +600,7 @@ onUnmounted(() => {
         ><span><Clock3 :size="15" />{{ article.readingMinutes }} 分钟阅读</span>
       </div>
       <p class="detail-summary">{{ article.summary }}</p>
-      <div class="markdown-body" v-html="body"></div>
+      <ArticleContent :key="article.slug" :content="article.content" />
       <div class="detail-bottom">
         <div class="detail-tags">
           <span v-for="tag in article.tags" :key="tag"># {{ tag }}</span>

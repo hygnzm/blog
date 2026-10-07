@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1010" viewBox="0 0 900 1010" role="img" aria-labelledby="title desc">
+<title id="title">三种注意力的输入来源</title><desc id="desc">编码器读取源文本并计算H；解码器用目标前文计算S，用S算Q、用H算K和V，预测下一token。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#829075"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;fill:#34432d} .secondary{fill:#626f57}</style>
+<rect width="900" height="1010" fill="#ffffff"/>
+<text x="450.0" y="43" text-anchor="middle" font-size="24" font-weight="500" class="">三种注意力的输入来源</text>
+<text x="195" y="81" text-anchor="middle" font-size="19" font-weight="500" class="">编码器：读取完整源文本</text>
+<text x="685" y="81" text-anchor="middle" font-size="19" font-weight="500" class="">解码器：使用已知目标前文</text>
+<rect x="35" y="110" width="320" height="78" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="195.0" y="139" text-anchor="middle" font-size="19" font-weight="500" class="">源文本输入</text>
+<text x="195.0" y="165" text-anchor="middle" font-size="16" font-weight="400" class="secondary">I like cats</text>
+<rect x="510" y="110" width="350" height="78" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="685.0" y="139" text-anchor="middle" font-size="19" font-weight="500" class="">右移后的目标侧输入</text>
+<text x="685.0" y="165" text-anchor="middle" font-size="16" font-weight="400" class="secondary">开始标记 → 我 → 喜欢 …</text>
+<rect x="35" y="225" width="320" height="78" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="195.0" y="254" text-anchor="middle" font-size="19" font-weight="500" class="">词嵌入 + 位置编码</text>
+<text x="195.0" y="280" text-anchor="middle" font-size="16" font-weight="400" class="secondary">每个位置得到初始表示 X</text>
+<rect x="510" y="225" width="350" height="78" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="685.0" y="254" text-anchor="middle" font-size="19" font-weight="500" class="">词嵌入 + 位置编码</text>
+<text x="685.0" y="280" text-anchor="middle" font-size="16" font-weight="400" class="secondary">每个位置得到初始表示 Xdec</text>
+<rect x="35" y="340" width="320" height="100" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="195.0" y="369" text-anchor="middle" font-size="19" font-weight="500" class="">编码器自注意力</text>
+<text x="195.0" y="395" text-anchor="middle" font-size="16" font-weight="400" class="secondary">Q、K、V 来自同一组层输入</text>
+<text x="195.0" y="418" text-anchor="middle" font-size="16" font-weight="400" class="secondary">可访问全部有效源位置</text>
+<rect x="510" y="340" width="350" height="100" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="685.0" y="369" text-anchor="middle" font-size="19" font-weight="500" class="">解码器掩码自注意力</text>
+<text x="685.0" y="395" text-anchor="middle" font-size="16" font-weight="400" class="secondary">Q、K、V 来自同一组层输入</text>
+<text x="685.0" y="418" text-anchor="middle" font-size="16" font-weight="400" class="secondary">可访问当前及之前的输入位置</text>
+<rect x="35" y="477" width="320" height="95" rx="10" fill="#f0f2ec" stroke="#d7dfce"/>
+<text x="195.0" y="506" text-anchor="middle" font-size="19" font-weight="500" class="">Add &amp; Norm → FFN</text>
+<text x="195.0" y="532" text-anchor="middle" font-size="16" font-weight="400" class="secondary">FFN 后再做 Add &amp; Norm</text>
+<rect x="510" y="477" width="350" height="78" rx="10" fill="#f0f2ec" stroke="#d7dfce"/>
+<text x="685.0" y="506" text-anchor="middle" font-size="19" font-weight="500" class="">Add &amp; Norm</text>
+<text x="685.0" y="532" text-anchor="middle" font-size="16" font-weight="400" class="secondary">得到携带目标前文的表示 S</text>
+<rect x="35" y="622" width="320" height="93" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="195.0" y="651" text-anchor="middle" font-size="19" font-weight="500" class="">编码器最终输出 H</text>
+<text x="195.0" y="677" text-anchor="middle" font-size="16" font-weight="400" class="secondary">为交叉注意力提供 K、V</text>
+<rect x="510" y="610" width="350" height="130" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="685.0" y="639" text-anchor="middle" font-size="19" font-weight="500" class="">编码器—解码器交叉注意力</text>
+<text x="685.0" y="665" text-anchor="middle" font-size="16" font-weight="400" class="secondary">Q = S WQ</text>
+<text x="685.0" y="688" text-anchor="middle" font-size="16" font-weight="400" class="secondary">K = H WK　 V = H WV</text>
+<text x="685.0" y="711" text-anchor="middle" font-size="16" font-weight="400" class="secondary">查询并汇总源文本信息</text>
+<rect x="510" y="782" width="350" height="95" rx="10" fill="#f0f2ec" stroke="#d7dfce"/>
+<text x="685.0" y="811" text-anchor="middle" font-size="19" font-weight="500" class="">Add &amp; Norm → FFN</text>
+<text x="685.0" y="837" text-anchor="middle" font-size="16" font-weight="400" class="secondary">FFN 后再做 Add &amp; Norm</text>
+<rect x="510" y="912" width="350" height="65" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="685.0" y="950.5" text-anchor="middle" font-size="19" font-weight="500" class="">Linear → Softmax → 下一 token</text>
+<path d="M 195 188 L 195 225" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 195 303 L 195 340" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 195 440 L 195 477" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 195 572 L 195 622" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 685 188 L 685 225" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 685 303 L 685 340" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 685 440 L 685 477" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 685 555 L 685 610" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 685 740 L 685 782" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 685 877 L 685 912" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 355 670 L 510 670" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<text x="432" y="649" text-anchor="middle" font-size="15" font-weight="400" class="secondary">H → K、V</text>
+<text x="195" y="793" text-anchor="middle" font-size="17" font-weight="400" class="secondary">编码器模块重复 6 层</text>
+<text x="195" y="824" text-anchor="middle" font-size="16" font-weight="400" class="secondary">每一层分别投影 Q、K、V</text>
+<text x="195" y="875" text-anchor="middle" font-size="16" font-weight="400" class="secondary">解码器的三种子层也重复 6 层</text>
+<text x="450.0" y="992" text-anchor="middle" font-size="13" font-weight="400" class="secondary">根据 Vaswani et al. (2017) Figure 1 重绘 · 展开一层主要模块，省略部分残差线</text>
+</svg>

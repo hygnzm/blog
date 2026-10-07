@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="720" viewBox="0 0 820 720" role="img" aria-labelledby="title desc">
+<title id="title">一次交互，怎样成为一次学习的经验</title><desc id="desc">上方交互循环包含状态、Q值与动作、环境、奖励与新状态；下方从经验池采样，用目标网络构造目标并更新当前Q网络。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#829075"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;fill:#34432d} .secondary{fill:#626f57}</style>
+<rect width="820" height="720" fill="#ffffff"/>
+<text x="410.0" y="43" text-anchor="middle" font-size="24" font-weight="500" class="">一次交互，怎样成为一次学习的经验</text>
+<text x="35" y="78" text-anchor="start" font-size="17" font-weight="500" class="">与环境交互</text>
+<rect x="35" y="102" width="300" height="92" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="185.0" y="131" text-anchor="middle" font-size="19" font-weight="500" class="">状态表示 s</text>
+<text x="185.0" y="157" text-anchor="middle" font-size="16" font-weight="400" class="secondary">最近 4 帧处理后的画面</text>
+<rect x="485" y="102" width="300" height="92" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="635.0" y="131" text-anchor="middle" font-size="19" font-weight="500" class="">估计 Q 值并选择动作 a</text>
+<text x="635.0" y="157" text-anchor="middle" font-size="16" font-weight="400" class="secondary">ε-greedy：选高 Q 值或随机选</text>
+<rect x="485" y="295" width="300" height="92" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="635.0" y="324" text-anchor="middle" font-size="19" font-weight="500" class="">环境执行动作</text>
+<text x="635.0" y="350" text-anchor="middle" font-size="16" font-weight="400" class="secondary">游戏推进，画面与分数变化</text>
+<rect x="35" y="295" width="300" height="92" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="185.0" y="324" text-anchor="middle" font-size="19" font-weight="500" class="">得到 r、s′ 与结束标记</text>
+<text x="185.0" y="350" text-anchor="middle" font-size="16" font-weight="400" class="secondary">奖励来自实际交互</text>
+<path d="M 335 148 L 485 148" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 635 194 L 635 295" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 485 341 L 335 341" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 185 295 L 185 194" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<text x="130" y="249" text-anchor="middle" font-size="15" font-weight="400" class="secondary">下一轮状态</text>
+<text x="35" y="462" text-anchor="start" font-size="17" font-weight="500" class="">使用经验更新网络</text>
+<rect x="35" y="494" width="220" height="116" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="145.0" y="523" text-anchor="middle" font-size="19" font-weight="500" class="">经验池与随机采样</text>
+<text x="145.0" y="549" text-anchor="middle" font-size="16" font-weight="400" class="secondary">保存交互记录</text>
+<text x="145.0" y="572" text-anchor="middle" font-size="16" font-weight="400" class="secondary">随机取一个小批次</text>
+<rect x="300" y="494" width="220" height="116" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="410.0" y="523" text-anchor="middle" font-size="19" font-weight="500" class="">目标网络计算 y</text>
+<text x="410.0" y="549" text-anchor="middle" font-size="16" font-weight="400" class="secondary">r + γ max Qtarget(s′, a′)</text>
+<text x="410.0" y="572" text-anchor="middle" font-size="16" font-weight="400" class="secondary">终止时 y = r</text>
+<rect x="565" y="494" width="220" height="116" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="675.0" y="523" text-anchor="middle" font-size="19" font-weight="500" class="">更新当前 Q 网络</text>
+<text x="675.0" y="549" text-anchor="middle" font-size="16" font-weight="400" class="secondary">比较预测与目标</text>
+<text x="675.0" y="572" text-anchor="middle" font-size="16" font-weight="400" class="secondary">反向传播更新参数</text>
+<path d="M 35 341 L 15 341 L 15 552 L 35 552" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path d="M 255 552 L 300 552" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 520 552 L 565 552" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<text x="410" y="660" text-anchor="middle" font-size="16" font-weight="400" class="secondary">当前网络定期复制参数给目标网络；动作推进游戏，训练更新参数。</text>
+<text x="410.0" y="702" text-anchor="middle" font-size="13" font-weight="400" class="secondary">教学示意 · 根据 Mnih et al. (2015) Methods 与训练算法重绘</text>
+</svg>

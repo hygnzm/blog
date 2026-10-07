@@ -29,17 +29,19 @@
   },
   {
     "slug": "transformer-attention-notes",
-    "title": "读懂 Transformer：从 Attention 到整体架构",
-    "category": "papers",
+    "title": "Transformer 阅读笔记",
     "tags": [
       "Transformer",
-      "深度学习"
+      "注意力机制",
+      "位置编码",
+      "论文精读"
     ],
-    "publishedAt": "2026-10-05",
-    "readingMinutes": 12,
+    "summary": "看 QKV 怎样计算、注意力怎样读取输入，以及目标右移怎样让输入与预测目标错开一位。配合计算图和三个交互例子，观察注意力权重、掩码和位置编码。",
+    "category": "papers",
+    "publishedAt": "2026-10-07",
+    "readingMinutes": 23,
     "featured": true,
-    "summary": "把论文中的公式放回数据流：理解 Query、Key、Value 如何配合，以及多头注意力、位置编码和残差连接分别解决什么问题。",
-    "content": "## 先画出数据流\n阅读 Transformer 时，可以先跟踪一个 token 的向量如何经过注意力层、前馈层与残差连接。确认每个张量的形状，比只记住模块名称更有帮助。\n\n## Query、Key、Value 的分工\n输入表示分别经过线性映射得到 Q、K、V。Q 与 K 的相似度决定注意力权重，权重用于对 V 加权求和。缩放项与 Key 的维度有关，softmax 沿被关注的位置计算。\n\n```python\n# 教学伪代码：单头注意力，省略 mask\nscores = (Q @ K.transpose(-2, -1)) / sqrt(d_k)\nweights = softmax(scores, dim=-1)\noutput = weights @ V\n```\n\n## 多头与位置\n不同的头使用各自的投影，在不同表示子空间计算关系。拼接后再进行输出映射。位置编码为没有递归或卷积顺序结构的注意力计算补充位置信息。\n\n## 阅读时值得追问\n- Encoder 的自注意力和 Decoder 的 masked 自注意力差别在哪里？\n- 解码时为什么不能看到后续 token？\n- 残差连接与归一化放在什么位置？\n- 序列长度增加后，注意力矩阵需要多少空间？\n\n## 小实验\n用一个很短的序列检查注意力矩阵的形状与行和。再添加 causal mask，观察未来位置的权重是否为零。先验证计算，再讨论模型学到了什么。\n\n## 原文\n[Attention Is All You Need](https://arxiv.org/abs/1706.03762)（Vaswani 等，2017）。本文是项目内置的导读示例，不包含复现实验结果。"
+    "contentFile": "transformer-attention-notes.md"
   },
   {
     "slug": "mysql-index-practice",
@@ -57,17 +59,19 @@
   },
   {
     "slug": "rag-retrieval-pipeline",
-    "title": "从检索到生成：搭建一个清晰的 RAG 流程",
-    "category": "agent",
+    "title": "读 RAG：检索到的资料怎样进入生成模型",
     "tags": [
       "RAG",
-      "向量检索"
+      "Agent",
+      "向量检索",
+      "论文精读"
     ],
-    "publishedAt": "2026-10-02",
-    "readingMinutes": 11,
-    "featured": false,
-    "summary": "把文档解析、分块、向量检索与答案生成拆成可独立观察的步骤，先找到检索失败的原因，再讨论提示词和模型选择。",
-    "content": "## 把流程拆开\n\n文档解析、分块、编码、检索与生成分别输出可观察结果。先保存检索片段和来源，再把它们交给模型，才能区分检索失败与生成失败。\n\n## 一个小例子\n\n```text\n原始文档 → 结构化文本 → 文本分块\n文本分块 → 向量编码 → 候选检索\n候选片段 → 重排序 → 带来源的答案\n```\n\n## 用问题验证检索\n\n准备包含明确答案和无法回答的问题集。检查候选片段是否覆盖答案，缺少依据时允许返回未找到，避免要求模型对每个问题都给出结论。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+    "summary": "结合 Transformer 说明文档怎样进入 BART，比较 RAG-Sequence 和 RAG-Token 怎样合并概率，并介绍正确答案怎样用于训练检索器。",
+    "category": "papers",
+    "publishedAt": "2026-10-07",
+    "readingMinutes": 10,
+    "featured": true,
+    "contentFile": "rag-retrieval-pipeline.md"
   },
   {
     "slug": "java-concurrency-basics",
@@ -208,5 +212,36 @@
     "featured": false,
     "summary": "从表示空间与相似度开始，记录向量检索中的距离指标、归一化与评价方法，关注数据和任务如何影响实际检索效果。",
     "content": "## 先明确距离指标\n\n余弦相似度关注方向，点积也会受到向量长度影响。使用归一化时要确认索引与查询处理一致，避免把不同空间的向量混在同一个索引里。\n\n## 一个小例子\n\n```python\nimport numpy as np\n\ndef cosine(a, b):\n    denom = np.linalg.norm(a) * np.linalg.norm(b)\n    if denom == 0:\n        raise ValueError(\"零向量无法计算余弦相似度\")\n    return float(np.dot(a, b) / denom)\n```\n\n## 用任务衡量表示\n\n向量距离只能说明在所选表示空间中有多近。实际是否相关，仍需使用查询与相关性标注衡量，观察 Recall@K 等指标并阅读失败样例。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "bdi-beliefs-desires-intentions",
+    "title": "读 BDI：信念、目标和正在执行的计划",
+    "tags": [
+      "Agent",
+      "BDI",
+      "论文精读"
+    ],
+    "summary": "用订机票的例子说明 BDI 怎样保存当前判断、待完成的目标和执行计划，并在环境变化时决定继续执行还是重新规划。",
+    "category": "papers",
+    "publishedAt": "2026-10-07",
+    "readingMinutes": 8,
+    "featured": true,
+    "contentFile": "bdi-beliefs-desires-intentions.md"
+  },
+  {
+    "slug": "dqn-environment-loop",
+    "title": "DQN：状态、动作和奖励",
+    "tags": [
+      "Agent",
+      "强化学习",
+      "DQN",
+      "论文精读"
+    ],
+    "summary": "从游戏中的一次移动讲解状态、动作、奖励与 Q 值，结合经验回放和目标网络说明交互记录怎样用于更新参数。",
+    "category": "papers",
+    "publishedAt": "2026-10-07",
+    "readingMinutes": 9,
+    "featured": true,
+    "contentFile": "dqn-environment-loop.md"
   }
 ]

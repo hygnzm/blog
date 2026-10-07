@@ -1,8 +1,14 @@
 import articles from "./articles.json";
 import { categoryDefinitions, createLibrary } from "./library.js";
+import { resolveArticleSources } from "./sources.js";
 
 export { categoryDefinitions };
-const library = createLibrary(articles);
+const markdownSources = import.meta.glob("./papers/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+const library = createLibrary(resolveArticleSources(articles, markdownSources));
 
 // Read from bundled content. Browsing never makes an API request or writes data.
 export async function getContent(path, params = {}, signal) {

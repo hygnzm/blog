@@ -1,9 +1,15 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { createLibrary } from "../src/content/library.js";
+import { resolveArticleSources } from "../src/content/sources.js";
 
-const articles = JSON.parse(readFileSync(new URL("../src/content/articles.json", import.meta.url), "utf8"));
+const articleMetadata = JSON.parse(readFileSync(new URL("../src/content/articles.json", import.meta.url), "utf8"));
+const paperDirectory = new URL("../src/content/papers/", import.meta.url);
+const markdownSources = Object.fromEntries(readdirSync(paperDirectory)
+  .filter((name) => name.endsWith(".md"))
+  .map((name) => [`./papers/${name}`, readFileSync(new URL(name, paperDirectory), "utf8")]));
+const articles = resolveArticleSources(articleMetadata, markdownSources);
 const library = createLibrary(articles);
 
 test("all published articles have valid content and unique routes", () => {
@@ -43,3 +49,18 @@ test("invalid date ranges and missing articles show understandable errors", () =
   assert.throws(() => library.list({ from: "2026-10-07", to: "2026-10-01" }), /开始日期/);
   assert.throws(() => library.detail("missing-article"), /不存在/);
 });
+
+test("paper diagrams and links to other notes resolve within the published site", () => {
+  for (const article of articles.filter(item => itemMetadataHasSource(item.slug))) {
+    for (const [, imagePath] of article.content.matchAll(/src="\.\/([^\"]+)"/g)) {
+      assert.ok(existsSync(new URL(`../public/${imagePath}`, import.meta.url)), `${article.slug}: ${imagePath}`);
+    }
+    for (const [, slug] of article.content.matchAll(/#\/articles\/([a-z0-9-]+)/g)) {
+      assert.equal(library.detail(slug).slug, slug);
+    }
+  }
+});
+
+function itemMetadataHasSource(slug) {
+  return articleMetadata.some(article => article.slug === slug && article.contentFile);
+}

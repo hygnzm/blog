@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="835" viewBox="0 0 820 835" role="img" aria-labelledby="title desc">
+<title id="title">用向量找资料，再让生成模型读文字</title><desc id="desc">离线文档切分并由文档编码器建立索引；在线问题经查询编码器搜索候选文档，每篇分别与原问题输入BART，再合并预测概率生成答案。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#829075"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;fill:#34432d} .secondary{fill:#626f57}</style>
+<rect width="820" height="835" fill="#ffffff"/>
+<text x="410.0" y="43" text-anchor="middle" font-size="24" font-weight="500" class="">用向量找资料，再让生成模型读文字</text>
+<text x="35" y="82" text-anchor="start" font-size="18" font-weight="500" class="">提前准备外部知识</text>
+<rect x="35" y="112" width="215" height="105" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="142.5" y="141" text-anchor="middle" font-size="19" font-weight="500" class="">文档片段</text>
+<text x="142.5" y="167" text-anchor="middle" font-size="16" font-weight="400" class="secondary">维基百科文字</text>
+<text x="142.5" y="190" text-anchor="middle" font-size="16" font-weight="400" class="secondary">约 100 个英文词一段</text>
+<rect x="302" y="112" width="215" height="105" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="409.5" y="141" text-anchor="middle" font-size="19" font-weight="500" class="">文档编码器</text>
+<text x="409.5" y="167" text-anchor="middle" font-size="16" font-weight="400" class="secondary">计算每段的 d(z)</text>
+<text x="409.5" y="190" text-anchor="middle" font-size="16" font-weight="400" class="secondary">保留原文与片段标识</text>
+<rect x="570" y="112" width="215" height="105" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="677.5" y="141" text-anchor="middle" font-size="19" font-weight="500" class="">向量索引</text>
+<text x="677.5" y="167" text-anchor="middle" font-size="16" font-weight="400" class="secondary">约 2100 万段</text>
+<text x="677.5" y="190" text-anchor="middle" font-size="16" font-weight="400" class="secondary">用于快速查找</text>
+<path d="M 250 164 L 302 164" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 517 164 L 570 164" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<text x="35" y="295" text-anchor="start" font-size="18" font-weight="500" class="">收到问题后</text>
+<rect x="35" y="327" width="215" height="92" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="142.5" y="356" text-anchor="middle" font-size="19" font-weight="500" class="">问题 x</text>
+<text x="142.5" y="382" text-anchor="middle" font-size="16" font-weight="400" class="secondary">用户需要回答的内容</text>
+<rect x="302" y="327" width="215" height="92" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="409.5" y="356" text-anchor="middle" font-size="19" font-weight="500" class="">查询编码器</text>
+<text x="409.5" y="382" text-anchor="middle" font-size="16" font-weight="400" class="secondary">计算问题向量 q(x)</text>
+<rect x="570" y="327" width="215" height="92" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="677.5" y="356" text-anchor="middle" font-size="19" font-weight="500" class="">检索 Top-K</text>
+<text x="677.5" y="382" text-anchor="middle" font-size="16" font-weight="400" class="secondary">按 q(x)·d(z) 匹配</text>
+<path d="M 250 373 L 302 373" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 517 373 L 570 373" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 678 217 L 678 327" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="465" y="489" width="320" height="95" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="625.0" y="518" text-anchor="middle" font-size="19" font-weight="500" class="">取出候选原文与检索权重</text>
+<text x="625.0" y="544" text-anchor="middle" font-size="16" font-weight="400" class="secondary">z₁、z₂、…、zK 及 p(z | x)</text>
+<path d="M 678 419 L 678 456 L 625 456 L 625 489" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="35" y="489" width="345" height="135" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="207.5" y="518" text-anchor="middle" font-size="19" font-weight="500" class="">同一个 BART，分别计算</text>
+<text x="207.5" y="544" text-anchor="middle" font-size="16" font-weight="400" class="secondary">x + z₁ → 一组生成概率</text>
+<text x="207.5" y="567" text-anchor="middle" font-size="16" font-weight="400" class="secondary">x + z₂ → 一组生成概率</text>
+<text x="207.5" y="590" text-anchor="middle" font-size="16" font-weight="400" class="secondary">…</text>
+<path d="M 143 419 L 143 489" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 465 536 L 380 536" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="235" y="689" width="350" height="95" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="410.0" y="718" text-anchor="middle" font-size="19" font-weight="500" class="">按检索权重合并预测概率</text>
+<text x="410.0" y="744" text-anchor="middle" font-size="16" font-weight="400" class="secondary">Sequence 或 Token → 答案 y</text>
+<path d="M 208 624 L 208 660 L 410 660 L 410 689" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 625 584 L 625 660 L 410 660 L 410 689" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<text x="656" y="635" text-anchor="middle" font-size="15" font-weight="400" class="secondary">检索权重</text>
+<text x="410.0" y="817" text-anchor="middle" font-size="13" font-weight="400" class="secondary">根据 Lewis et al. (2020) Figure 1 与 §2 重绘</text>
+</svg>

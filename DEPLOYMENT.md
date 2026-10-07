@@ -17,7 +17,7 @@
 
 ## 更新自己的文章
 
-编辑 `frontend/src/content/articles.json`，再提交并推送到 `main`。目前保留 15 篇演示笔记，正式发布前可以替换成自己的内容。
+编辑 `frontend/src/content/articles.json`，再提交并推送到 `main`。目前共 17 篇文章，其中 13 篇为内置学习示例，另 4 篇为 BDI、DQN、Transformer 和 RAG 的阅读笔记。
 
 ```json
 {
@@ -34,6 +34,12 @@
 ```
 
 `slug` 必须唯一，使用小写英文、数字和连字符。分类为 `backend`（后端学习）、`agent`（Agent 学习）、`papers`（论文学习）、`career`（求职经历）。分类名称和说明在 `frontend/src/content/library.js`，标签和文章数量自动计算。多标签筛选匹配任意一个所选标签；日期包含起止当天。
+
+长文也可以把正文放在 `frontend/src/content/papers/`，元数据使用 `"contentFile": "transformer-attention-notes.md"`，不再填写 `content`。文件名使用小写英文、数字和连字符。构建会检查正文文件是否存在；Markdown 会被打包进网站，不需要额外接口。
+
+论文配图放在 `frontend/public/images/papers/`，正文使用 `./images/papers/文件名.svg`，保留开头的相对路径以适配 GitHub Pages 子目录。文章配图可以放在 `figure.paper-figure` 中，用 `button.diagram-open` 包住图片，并给按钮和图片填写说明；读者点开后可以查看原尺寸。
+
+Transformer 正文中的 `<!-- demo:attention -->`、`<!-- demo:shift -->` 和 `<!-- demo:position -->` 会分别显示注意力计算、目标对齐和位置编码例子。这三种标记适用于本项目的文章组件；导出到其他 Markdown 阅读器时需要另行处理。
 
 访客修改浏览器里的显示不会改变已发布文章。站点内容与源码均按公开内容发布，任何人可以阅读或下载，网站不提供内容保密或禁止复制功能。更新权由你的 GitHub 仓库写入权限控制。
 

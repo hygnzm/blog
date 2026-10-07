@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="650" viewBox="0 0 820 650" role="img" aria-labelledby="title desc">
+<title id="title">把当前情况、目标和执行计划分开</title><desc id="desc">BDI 的三个状态组件参与下一步判断；根据情况继续计划、重新规划或结束，行动后接收事件并更新当前情况。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#829075"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;fill:#34432d} .secondary{fill:#626f57}</style>
+<rect width="820" height="650" fill="#ffffff"/>
+<text x="410.0" y="43" text-anchor="middle" font-size="24" font-weight="500" class="">把当前情况、目标和执行计划分开</text>
+<rect x="30" y="83" width="240" height="130" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="150.0" y="112" text-anchor="middle" font-size="19" font-weight="500" class="">B · 当前情况</text>
+<text x="150.0" y="138" text-anchor="middle" font-size="16" font-weight="400" class="secondary">航班 A 有余票</text>
+<text x="150.0" y="161" text-anchor="middle" font-size="16" font-weight="400" class="secondary">票价 500 元</text>
+<rect x="290" y="83" width="240" height="130" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="410.0" y="112" text-anchor="middle" font-size="19" font-weight="500" class="">D · 希望实现的事</text>
+<text x="410.0" y="138" text-anchor="middle" font-size="16" font-weight="400" class="secondary">明天去上海</text>
+<text x="410.0" y="161" text-anchor="middle" font-size="16" font-weight="400" class="secondary">预算 ≤ 600 元</text>
+<rect x="550" y="83" width="240" height="130" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="670.0" y="112" text-anchor="middle" font-size="19" font-weight="500" class="">I · 正在执行的计划</text>
+<text x="670.0" y="138" text-anchor="middle" font-size="16" font-weight="400" class="secondary">选定航班 A</text>
+<text x="670.0" y="161" text-anchor="middle" font-size="16" font-weight="400" class="secondary">正在填写订单</text>
+<rect x="235" y="275" width="350" height="90" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="410.0" y="304" text-anchor="middle" font-size="19" font-weight="500" class="">根据状态判断下一步</text>
+<text x="410.0" y="330" text-anchor="middle" font-size="16" font-weight="400" class="secondary">计划库与事件队列提供方案</text>
+<path d="M 150 213 L 150 240 L 410 240 L 410 275" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 410 213 L 410 240 L 410 240 L 410 275" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 670 213 L 670 240 L 410 240 L 410 275" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 410 365 L 410 390 L 150 390 L 150 425" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 410 365 L 410 390 L 410 390 L 410 425" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 410 365 L 410 390 L 670 390 L 670 425" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="30" y="425" width="240" height="98" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="150.0" y="454" text-anchor="middle" font-size="19" font-weight="500" class="">继续当前计划</text>
+<text x="150.0" y="480" text-anchor="middle" font-size="16" font-weight="400" class="secondary">涨到 510 元，仍符合要求</text>
+<rect x="290" y="425" width="240" height="98" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="410.0" y="454" text-anchor="middle" font-size="19" font-weight="500" class="">重新规划</text>
+<text x="410.0" y="480" text-anchor="middle" font-size="16" font-weight="400" class="secondary">航班售罄或目标改变</text>
+<rect x="550" y="425" width="240" height="98" rx="10" fill="#f0f2ec" stroke="#d7dfce"/>
+<text x="670.0" y="454" text-anchor="middle" font-size="19" font-weight="500" class="">结束任务</text>
+<text x="670.0" y="480" text-anchor="middle" font-size="16" font-weight="400" class="secondary">订单确认成功</text>
+<rect x="30" y="560" width="760" height="52" rx="10" fill="#f0f2ec" stroke="#d7dfce"/>
+<text x="410.0" y="592.0" text-anchor="middle" font-size="19" font-weight="500" class="">执行动作 → 接收新事件 → 更新当前情况 → 再检查</text>
+<text x="410.0" y="632" text-anchor="middle" font-size="13" font-weight="400" class="secondary">教学示意 · 根据 Rao &amp; Georgeff (1995) 的架构与承诺策略重绘</text>
+</svg>

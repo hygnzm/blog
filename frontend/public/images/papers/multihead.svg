@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="670" viewBox="0 0 820 670" role="img" aria-labelledby="title desc">
+<title id="title">每个头都有自己的 Q、K、V</title><desc id="desc">同一输入分别进入多个头各自的QKV投影与注意力运算，输出拼接后通过WO映射回模型维度；图中展示两头，原基础模型八头。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#829075"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;fill:#34432d} .secondary{fill:#626f57}</style>
+<rect width="820" height="670" fill="#ffffff"/>
+<text x="410.0" y="43" text-anchor="middle" font-size="24" font-weight="500" class="">每个头都有自己的 Q、K、V</text>
+<rect x="235" y="90" width="350" height="80" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="410.0" y="119" text-anchor="middle" font-size="19" font-weight="500" class="">同一组注意力输入</text>
+<text x="410.0" y="145" text-anchor="middle" font-size="16" font-weight="400" class="secondary">自注意力时来自同一组层表示</text>
+<rect x="30" y="240" width="350" height="125" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="205.0" y="269" text-anchor="middle" font-size="19" font-weight="500" class="">头 1</text>
+<text x="205.0" y="295" text-anchor="middle" font-size="16" font-weight="400" class="secondary">自己的 WQ₁、WK₁、WV₁</text>
+<text x="205.0" y="318" text-anchor="middle" font-size="16" font-weight="400" class="secondary">得到 Q₁、K₁、V₁</text>
+<text x="205.0" y="341" text-anchor="middle" font-size="16" font-weight="400" class="secondary">计算注意力</text>
+<rect x="440" y="240" width="350" height="125" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="615.0" y="269" text-anchor="middle" font-size="19" font-weight="500" class="">头 2</text>
+<text x="615.0" y="295" text-anchor="middle" font-size="16" font-weight="400" class="secondary">自己的 WQ₂、WK₂、WV₂</text>
+<text x="615.0" y="318" text-anchor="middle" font-size="16" font-weight="400" class="secondary">得到 Q₂、K₂、V₂</text>
+<text x="615.0" y="341" text-anchor="middle" font-size="16" font-weight="400" class="secondary">计算注意力</text>
+<path d="M 410 170 L 410 205 L 205 205 L 205 240" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 410 170 L 410 205 L 615 205 L 615 240" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="235" y="433" width="350" height="70" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="410.0" y="474.0" text-anchor="middle" font-size="19" font-weight="500" class="">Concat：拼接各头输出</text>
+<path d="M 205 365 L 205 402 L 410 402 L 410 433" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 615 365 L 615 402 L 410 402 L 410 433" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="235" y="554" width="350" height="65" rx="10" fill="#f0f2ec" stroke="#d7dfce"/>
+<text x="410.0" y="592.5" text-anchor="middle" font-size="19" font-weight="500" class="">WO：映射回模型维度</text>
+<path d="M 410 503 L 410 554" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<text x="410.0" y="652" text-anchor="middle" font-size="13" font-weight="400" class="secondary">根据 Vaswani et al. (2017) §3.2.2 重绘 · 展开两个头，基础模型实际使用 8 个头</text>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="805" viewBox="0 0 820 805" role="img" aria-labelledby="title desc">
+<title id="title">目标对齐和掩码，各自负责一件事</title><desc id="desc">目标输入开始、我、喜欢、猫分别预测我、喜欢、猫、结束；掩码允许每行读取自己及之前的输入位置，未来位置遮住。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#829075"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;fill:#34432d} .secondary{fill:#626f57}</style>
+<rect width="820" height="805" fill="#ffffff"/>
+<text x="410.0" y="43" text-anchor="middle" font-size="24" font-weight="500" class="">目标对齐和掩码，各自负责一件事</text>
+<text x="40" y="123" text-anchor="start" font-size="17" font-weight="400" class="">输入位置</text>
+<text x="40" y="187" text-anchor="start" font-size="17" font-weight="400" class="">解码器输入</text>
+<text x="40" y="259" text-anchor="start" font-size="17" font-weight="400" class="">预测目标</text>
+<text x="267.5" y="123" text-anchor="middle" font-size="17" font-weight="400" class="">0</text>
+<rect x="200" y="148" width="135" height="55" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="267.5" y="181.5" text-anchor="middle" font-size="19" font-weight="500" class="">开始标记</text>
+<rect x="200" y="220" width="135" height="55" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="267.5" y="253.5" text-anchor="middle" font-size="19" font-weight="500" class="">我</text>
+<text x="412.5" y="123" text-anchor="middle" font-size="17" font-weight="400" class="">1</text>
+<rect x="345" y="148" width="135" height="55" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="412.5" y="181.5" text-anchor="middle" font-size="19" font-weight="500" class="">我</text>
+<rect x="345" y="220" width="135" height="55" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="412.5" y="253.5" text-anchor="middle" font-size="19" font-weight="500" class="">喜欢</text>
+<text x="557.5" y="123" text-anchor="middle" font-size="17" font-weight="400" class="">2</text>
+<rect x="490" y="148" width="135" height="55" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="557.5" y="181.5" text-anchor="middle" font-size="19" font-weight="500" class="">喜欢</text>
+<rect x="490" y="220" width="135" height="55" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="557.5" y="253.5" text-anchor="middle" font-size="19" font-weight="500" class="">猫</text>
+<text x="702.5" y="123" text-anchor="middle" font-size="17" font-weight="400" class="">3</text>
+<rect x="635" y="148" width="135" height="55" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="702.5" y="181.5" text-anchor="middle" font-size="19" font-weight="500" class="">猫</text>
+<rect x="635" y="220" width="135" height="55" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="702.5" y="253.5" text-anchor="middle" font-size="19" font-weight="500" class="">结束标记</text>
+<text x="410" y="321" text-anchor="middle" font-size="18" font-weight="500" class="">位置 2：输入“喜欢”，使用已知前文来预测“猫”</text>
+<text x="410" y="365" text-anchor="middle" font-size="17" font-weight="400" class="secondary">列：可以读取的输入位置</text>
+<text x="298.5" y="405" text-anchor="middle" font-size="16" font-weight="400" class="">0 · 开始标记</text>
+<text x="415.5" y="405" text-anchor="middle" font-size="16" font-weight="400" class="">1 · 我</text>
+<text x="532.5" y="405" text-anchor="middle" font-size="16" font-weight="400" class="">2 · 喜欢</text>
+<text x="649.5" y="405" text-anchor="middle" font-size="16" font-weight="400" class="">3 · 猫</text>
+<text x="41" y="457" text-anchor="start" font-size="17" font-weight="400" class="">查询位置 0</text>
+<rect x="242" y="421" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="298.5" y="460" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<rect x="359" y="421" width="113" height="66" rx="5" fill="#f0f2ec"/>
+<text x="415.5" y="460" text-anchor="middle" font-size="17" font-weight="400" class="secondary">遮住</text>
+<rect x="476" y="421" width="113" height="66" rx="5" fill="#f0f2ec"/>
+<text x="532.5" y="460" text-anchor="middle" font-size="17" font-weight="400" class="secondary">遮住</text>
+<rect x="593" y="421" width="113" height="66" rx="5" fill="#f0f2ec"/>
+<text x="649.5" y="460" text-anchor="middle" font-size="17" font-weight="400" class="secondary">遮住</text>
+<text x="41" y="535" text-anchor="start" font-size="17" font-weight="400" class="">查询位置 1</text>
+<rect x="242" y="499" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="298.5" y="538" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<rect x="359" y="499" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="415.5" y="538" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<rect x="476" y="499" width="113" height="66" rx="5" fill="#f0f2ec"/>
+<text x="532.5" y="538" text-anchor="middle" font-size="17" font-weight="400" class="secondary">遮住</text>
+<rect x="593" y="499" width="113" height="66" rx="5" fill="#f0f2ec"/>
+<text x="649.5" y="538" text-anchor="middle" font-size="17" font-weight="400" class="secondary">遮住</text>
+<text x="41" y="613" text-anchor="start" font-size="17" font-weight="400" class="">查询位置 2</text>
+<rect x="242" y="577" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="298.5" y="616" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<rect x="359" y="577" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="415.5" y="616" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<rect x="476" y="577" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="532.5" y="616" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<rect x="593" y="577" width="113" height="66" rx="5" fill="#f0f2ec"/>
+<text x="649.5" y="616" text-anchor="middle" font-size="17" font-weight="400" class="secondary">遮住</text>
+<rect x="235" y="572" width="478" height="76" rx="7" fill="none" stroke="#d5a42c" stroke-width="2"/>
+<text x="41" y="691" text-anchor="start" font-size="17" font-weight="400" class="">查询位置 3</text>
+<rect x="242" y="655" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="298.5" y="694" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<rect x="359" y="655" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="415.5" y="694" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<rect x="476" y="655" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="532.5" y="694" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<rect x="593" y="655" width="113" height="66" rx="5" fill="#eef5e7"/>
+<text x="649.5" y="694" text-anchor="middle" font-size="17" font-weight="400" class="">可读</text>
+<text x="410" y="765" text-anchor="middle" font-size="16" font-weight="400" class="secondary">对角线可读：当前输入 token 已知，预测的是后一个 token。</text>
+<text x="410.0" y="787" text-anchor="middle" font-size="13" font-weight="400" class="secondary">根据 Vaswani et al. (2017) §3.1 重绘 · token 与起止标记为教学示意</text>
+</svg>

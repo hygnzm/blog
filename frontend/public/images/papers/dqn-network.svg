@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="765" viewBox="0 0 820 765" role="img" aria-labelledby="title desc">
+<title id="title">从连续画面到各动作的 Q 值</title><desc id="desc">输入84乘84乘4依次经过32个8乘8步幅4卷积、64个4乘4步幅2卷积、64个3乘3步幅1卷积、512单元全连接和动作价值输出。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#829075"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;fill:#34432d} .secondary{fill:#626f57}</style>
+<rect width="820" height="765" fill="#ffffff"/>
+<text x="410.0" y="43" text-anchor="middle" font-size="24" font-weight="500" class="">从连续画面到各动作的 Q 值</text>
+<rect x="95" y="85" width="630" height="78" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="410.0" y="114" text-anchor="middle" font-size="19" font-weight="500" class="">输入状态表示</text>
+<text x="410.0" y="140" text-anchor="middle" font-size="16" font-weight="400" class="secondary">84 × 84 × 4：最近 4 帧</text>
+<path d="M 410 163 L 410 188" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="95" y="188" width="630" height="78" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="410.0" y="217" text-anchor="middle" font-size="19" font-weight="500" class="">卷积层 1 + ReLU</text>
+<text x="410.0" y="243" text-anchor="middle" font-size="16" font-weight="400" class="secondary">32 个卷积核 · 8 × 8 · 步幅 4</text>
+<path d="M 410 266 L 410 291" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="95" y="291" width="630" height="78" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="410.0" y="320" text-anchor="middle" font-size="19" font-weight="500" class="">卷积层 2 + ReLU</text>
+<text x="410.0" y="346" text-anchor="middle" font-size="16" font-weight="400" class="secondary">64 个卷积核 · 4 × 4 · 步幅 2</text>
+<path d="M 410 369 L 410 394" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="95" y="394" width="630" height="78" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="410.0" y="423" text-anchor="middle" font-size="19" font-weight="500" class="">卷积层 3 + ReLU</text>
+<text x="410.0" y="449" text-anchor="middle" font-size="16" font-weight="400" class="secondary">64 个卷积核 · 3 × 3 · 步幅 1</text>
+<path d="M 410 472 L 410 497" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="95" y="497" width="630" height="78" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="410.0" y="526" text-anchor="middle" font-size="19" font-weight="500" class="">全连接层 + ReLU</text>
+<text x="410.0" y="552" text-anchor="middle" font-size="16" font-weight="400" class="secondary">512 个单元</text>
+<path d="M 410 575 L 410 600" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<rect x="95" y="600" width="630" height="105" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="410.0" y="629" text-anchor="middle" font-size="19" font-weight="500" class="">每个合法动作一个 Q 值</text>
+<text x="410.0" y="655" text-anchor="middle" font-size="16" font-weight="400" class="secondary">向上：1.2　 向下：2.0　 不动：0.5</text>
+<text x="410.0" y="678" text-anchor="middle" font-size="16" font-weight="400" class="secondary">线性输出，不是动作概率</text>
+<text x="410.0" y="747" text-anchor="middle" font-size="13" font-weight="400" class="secondary">结构依据 Mnih et al. (2015) Model architecture · 动作与 Q 数值为教学例子</text>
+</svg>

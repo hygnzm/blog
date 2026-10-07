@@ -36,7 +36,10 @@ GitHub Pages 的准备配置已放在 .github/workflows/pages.yml。上传源码
 
 ## 内容与结构
 
-- frontend/src/content/articles.json：15 篇演示学习笔记，正式发布前可替换为自己的文章。
+- frontend/src/content/articles.json：文章元数据；目前共 17 篇，含 13 篇内置学习示例和 4 篇根据阅读对话整理的论文笔记。
+- frontend/src/content/papers/：BDI、DQN、Transformer 和 RAG 的 Markdown 正文，修改后随网站打包。
+- frontend/public/images/papers/：9 张论文教学配图，正文中可以点开放大。
+- frontend/src/components/：文章展示与 Transformer 的注意力、目标对齐、位置编码交互例子。
 - frontend/src/content/library.js：分类说明、文章校验、搜索、筛选、排序和分页。
 - frontend/src/content/index.js：读取打包内容，不请求远程 API。
 - frontend/src/App.vue：列表与详情界面。
@@ -45,7 +48,7 @@ GitHub Pages 的准备配置已放在 .github/workflows/pages.yml。上传源码
 - .github/workflows/pages.yml：GitHub Pages 自动发布。
 - backend/：先前 Spring Boot 版本的保留源码，当前不用。
 
-新增文章编辑 frontend/src/content/articles.json；分类使用 backend、agent、papers、career。标签和文章数量自动统计。品牌在 App.vue 中修改。
+新增文章编辑 frontend/src/content/articles.json；分类使用 backend、agent、papers、career。短文可使用 content 字段；长文可使用 contentFile 指向 papers/ 下的 Markdown 文件。标签和文章数量自动统计。品牌在 App.vue 中修改。
 
 部署只上传构建结果，网站没有写入接口。访客仍可读取和下载公开内容；源码是否可写取决于你的 GitHub 仓库权限。
 

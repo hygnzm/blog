@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="665" viewBox="0 0 820 665" role="img" aria-labelledby="title desc">
+<title id="title">完整答案合并，或逐 token 合并</title><desc id="desc">RAG Sequence对每篇文档计算整段答案概率后加权合并，Token在每个生成位置先加权合并下一token概率；两者候选集合均由问题预先检索。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#829075"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;fill:#34432d} .secondary{fill:#626f57}</style>
+<rect width="820" height="665" fill="#ffffff"/>
+<text x="410.0" y="43" text-anchor="middle" font-size="24" font-weight="500" class="">完整答案合并，或逐 token 合并</text>
+<text x="220" y="93" text-anchor="middle" font-size="22" font-weight="500" class="">RAG-Sequence</text>
+<text x="610" y="93" text-anchor="middle" font-size="22" font-weight="500" class="">RAG-Token</text>
+<rect x="40" y="127" width="350" height="95" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="215.0" y="156" text-anchor="middle" font-size="19" font-weight="500" class="">问题 + 文档 z₁</text>
+<text x="215.0" y="182" text-anchor="middle" font-size="16" font-weight="400" class="secondary">计算完整答案的概率</text>
+<rect x="40" y="253" width="350" height="95" rx="10" fill="#edf3fc" stroke="#d7dfce"/>
+<text x="215.0" y="282" text-anchor="middle" font-size="19" font-weight="500" class="">问题 + 文档 z₂</text>
+<text x="215.0" y="308" text-anchor="middle" font-size="16" font-weight="400" class="secondary">计算完整答案的概率</text>
+<rect x="430" y="127" width="350" height="95" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="605.0" y="156" text-anchor="middle" font-size="19" font-weight="500" class="">问题 + 文档 z₁</text>
+<text x="605.0" y="182" text-anchor="middle" font-size="16" font-weight="400" class="secondary">计算当前下一 token 的概率</text>
+<rect x="430" y="253" width="350" height="95" rx="10" fill="#f3effa" stroke="#d7dfce"/>
+<text x="605.0" y="282" text-anchor="middle" font-size="19" font-weight="500" class="">问题 + 文档 z₂</text>
+<text x="605.0" y="308" text-anchor="middle" font-size="16" font-weight="400" class="secondary">计算当前下一 token 的概率</text>
+<rect x="40" y="414" width="350" height="100" rx="10" fill="#eef5e7" stroke="#d7dfce"/>
+<text x="215.0" y="443" text-anchor="middle" font-size="19" font-weight="500" class="">完整答案概率加权合并</text>
+<text x="215.0" y="469" text-anchor="middle" font-size="16" font-weight="400" class="secondary">先计算各位置概率的乘积</text>
+<text x="215.0" y="492" text-anchor="middle" font-size="16" font-weight="400" class="secondary">再对文档加权求和</text>
+<rect x="430" y="414" width="350" height="100" rx="10" fill="#fff5d5" stroke="#d7dfce"/>
+<text x="605.0" y="443" text-anchor="middle" font-size="19" font-weight="500" class="">下一 token 概率加权合并</text>
+<text x="605.0" y="469" text-anchor="middle" font-size="16" font-weight="400" class="secondary">每一步对文档加权求和</text>
+<text x="605.0" y="492" text-anchor="middle" font-size="16" font-weight="400" class="secondary">继续预测后面的 token</text>
+<path d="M 215 222 L 25 222 L 25 381 L 215 381 L 215 414" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 215 348 L 215 414" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 605 222 L 415 222 L 415 381 L 605 381 L 605 414" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<path d="M 605 348 L 605 414" fill="none" stroke="#829075" stroke-width="1.7" marker-end="url(#arrow)" />
+<text x="215" y="559" text-anchor="middle" font-size="21" font-weight="400" class="">Σz r(z) · Πi gᵢ(z)</text>
+<text x="605" y="559" text-anchor="middle" font-size="21" font-weight="400" class="">Πi Σz r(z) · gᵢ(z)</text>
+<text x="410" y="612" text-anchor="middle" font-size="16" font-weight="400" class="secondary">两者都使用问题检索得到的候选集合；Token 不表示每步重新检索。</text>
+<text x="410.0" y="647" text-anchor="middle" font-size="13" font-weight="400" class="secondary">根据 Lewis et al. (2020) §2.1 重绘 · 图中仅展开两篇候选资料</text>
+</svg>
