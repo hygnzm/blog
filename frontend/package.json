@@ -1,0 +1,22 @@
+{
+  "name": "code-notes-blog",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "test": "node --test tests/*.test.js",
+    "build": "npm run test && vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "vue": "^3.5.22",
+    "lucide-vue-next": "^0.468.0",
+    "marked": "^16.3.0",
+    "dompurify": "^3.2.7"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.9"
+  }
+}

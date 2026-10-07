@@ -1,0 +1,11 @@
+frontend/node_modules/
+frontend/dist/
+# Earlier backend source stays local; this repository publishes the static blog.
+backend/
+.idea/
+*.iml
+*.log
+.DS_Store
+frontend/.env*
+!frontend/.env.example
+.run/

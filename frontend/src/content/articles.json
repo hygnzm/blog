@@ -1,0 +1,212 @@
+[
+  {
+    "slug": "spring-boot-first-api",
+    "title": "从零搭建 Spring Boot：你的第一个 RESTful API",
+    "category": "backend",
+    "tags": [
+      "Java",
+      "Spring Boot"
+    ],
+    "publishedAt": "2026-10-07",
+    "readingMinutes": 8,
+    "featured": true,
+    "summary": "从项目结构、路由设计到统一异常处理，用一个文章接口串起 Spring Boot 的开发流程，让后端服务不再停留在 Hello World。",
+    "content": "## 从一个小接口开始\n一个 REST API 的职责是接收请求、验证输入、执行业务逻辑并返回明确的结果。先用文章列表练习，比一开始接入所有中间件更容易建立完整的反馈闭环。\n\n## 把职责分开\nController 处理 HTTP 参数，Service 负责筛选与排序，Repository 负责读取数据。三层不是为了增加文件数量，而是让业务规则有明确的位置。这个博客的示例使用 JSON 文件保存文章，可以先不配置数据库。\n\n```java\n@RestController\n@RequestMapping(\"/api/articles\")\npublic class ArticleController {\n    private final ArticleService service;\n\n    public ArticleController(ArticleService service) {\n        this.service = service;\n    }\n\n    @GetMapping\n    public List<Article> list() {\n        return service.findAll();\n    }\n}\n```\n\n## 设计稳定的响应\n列表接口应该返回文章摘要，而不是整篇正文。分页信息包含总条数、当前页和每页数量。不存在的详情返回 404，无效参数返回 400，避免前端把错误当成空列表。\n\n| 场景 | 状态码 | 处理方式 |\n| --- | --- | --- |\n| 查询成功 | 200 | 返回列表及分页信息 |\n| 日期格式错误 | 400 | 提示参数格式 |\n| 文章不存在 | 404 | 显示详情错误页面 |\n\n## 实践清单\n1. 先验证健康检查接口能返回结果。\n2. 为列表增加关键词与日期范围参数。\n3. 检查空列表、越界页码和不存在的文章。\n4. 再让前端通过接口读取数据。\n\n> 本文为项目内置的学习示例。先把小流程跑通，再逐步扩展数据库和管理能力。"
+  },
+  {
+    "slug": "agent-tool-calling",
+    "title": "Agent 的第一步：让模型学会调用工具",
+    "category": "agent",
+    "tags": [
+      "Agent",
+      "Tool Calling"
+    ],
+    "publishedAt": "2026-10-06",
+    "readingMinutes": 10,
+    "featured": true,
+    "summary": "模型如何从“给出回答”走向“完成任务”？从工具定义、参数校验和执行循环开始，搭建一个可理解、可观察的 Agent 工作流。",
+    "content": "## 先理解执行循环\nAgent 的基础循环可以拆成：接收任务 → 模型选择工具 → 应用校验参数 → 执行工具 → 把结果交回模型。模型提出调用请求，实际执行由应用代码完成。\n\n## 工具需要明确的契约\n工具的名称、描述、参数和返回结构共同形成契约。不要把所有功能包装成一个万能工具；让每个工具完成一个明确动作，例如按关键词检索文章。\n\n```json\n{\n  \"name\": \"search_articles\",\n  \"description\": \"按关键词搜索技术学习笔记\",\n  \"parameters\": {\n    \"type\": \"object\",\n    \"properties\": { \"keyword\": { \"type\": \"string\" } },\n    \"required\": [\"keyword\"],\n    \"additionalProperties\": false\n  }\n}\n```\n\n## 把边界交给应用\n执行前校验参数、权限和工具白名单。读取信息与修改数据要分开；不要直接把模型输出拼接成 SQL 或系统命令。限制执行轮数和每次请求的时间，避免无休止地重试。\n\n## 观察每一次决策\n记录任务输入、工具名、经过脱敏的参数、耗时和结果状态。失败时区分参数错误、工具不可用和结果为空，这样才知道应该修改描述、修复接口还是直接结束任务。\n\n## 下一步实践\n先实现一个只读搜索工具，用固定测试任务验证它是否检索到正确文章。再添加第二个工具，检查模型在不同任务下能否选择合适的操作。\n\n> 本文是流程设计笔记，不绑定某一家模型服务或 SDK。接入实际模型时，以所选服务的工具调用接口为准。"
+  },
+  {
+    "slug": "transformer-attention-notes",
+    "title": "读懂 Transformer：从 Attention 到整体架构",
+    "category": "papers",
+    "tags": [
+      "Transformer",
+      "深度学习"
+    ],
+    "publishedAt": "2026-10-05",
+    "readingMinutes": 12,
+    "featured": true,
+    "summary": "把论文中的公式放回数据流：理解 Query、Key、Value 如何配合，以及多头注意力、位置编码和残差连接分别解决什么问题。",
+    "content": "## 先画出数据流\n阅读 Transformer 时，可以先跟踪一个 token 的向量如何经过注意力层、前馈层与残差连接。确认每个张量的形状，比只记住模块名称更有帮助。\n\n## Query、Key、Value 的分工\n输入表示分别经过线性映射得到 Q、K、V。Q 与 K 的相似度决定注意力权重，权重用于对 V 加权求和。缩放项与 Key 的维度有关，softmax 沿被关注的位置计算。\n\n```python\n# 教学伪代码：单头注意力，省略 mask\nscores = (Q @ K.transpose(-2, -1)) / sqrt(d_k)\nweights = softmax(scores, dim=-1)\noutput = weights @ V\n```\n\n## 多头与位置\n不同的头使用各自的投影，在不同表示子空间计算关系。拼接后再进行输出映射。位置编码为没有递归或卷积顺序结构的注意力计算补充位置信息。\n\n## 阅读时值得追问\n- Encoder 的自注意力和 Decoder 的 masked 自注意力差别在哪里？\n- 解码时为什么不能看到后续 token？\n- 残差连接与归一化放在什么位置？\n- 序列长度增加后，注意力矩阵需要多少空间？\n\n## 小实验\n用一个很短的序列检查注意力矩阵的形状与行和。再添加 causal mask，观察未来位置的权重是否为零。先验证计算，再讨论模型学到了什么。\n\n## 原文\n[Attention Is All You Need](https://arxiv.org/abs/1706.03762)（Vaswani 等，2017）。本文是项目内置的导读示例，不包含复现实验结果。"
+  },
+  {
+    "slug": "mysql-index-practice",
+    "title": "MySQL 索引实践：从 EXPLAIN 看懂查询计划",
+    "category": "backend",
+    "tags": [
+      "MySQL",
+      "数据库"
+    ],
+    "publishedAt": "2026-10-03",
+    "readingMinutes": 9,
+    "featured": false,
+    "summary": "索引为什么有时没有生效？围绕联合索引、最左前缀和查询计划，用具体的 SQL 梳理查询优化时应该检查的细节。",
+    "content": "## 先观察实际查询\n\n使用 EXPLAIN 检查访问路径，关注访问类型、选中的索引和预估扫描行数。预估行数不是实际耗时，仍要在相同数据量下测量。\n\n## 一个小例子\n\n```sql\nEXPLAIN SELECT id, title\nFROM articles\nWHERE category = 'backend'\nORDER BY published_at DESC\nLIMIT 20;\n```\n\n## 根据查询设计索引\n\n联合索引的顺序要结合条件、排序和数据分布决定。增加索引会增加存储空间和写入维护成本，应先确认目标查询，再验证执行计划。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "rag-retrieval-pipeline",
+    "title": "从检索到生成：搭建一个清晰的 RAG 流程",
+    "category": "agent",
+    "tags": [
+      "RAG",
+      "向量检索"
+    ],
+    "publishedAt": "2026-10-02",
+    "readingMinutes": 11,
+    "featured": false,
+    "summary": "把文档解析、分块、向量检索与答案生成拆成可独立观察的步骤，先找到检索失败的原因，再讨论提示词和模型选择。",
+    "content": "## 把流程拆开\n\n文档解析、分块、编码、检索与生成分别输出可观察结果。先保存检索片段和来源，再把它们交给模型，才能区分检索失败与生成失败。\n\n## 一个小例子\n\n```text\n原始文档 → 结构化文本 → 文本分块\n文本分块 → 向量编码 → 候选检索\n候选片段 → 重排序 → 带来源的答案\n```\n\n## 用问题验证检索\n\n准备包含明确答案和无法回答的问题集。检查候选片段是否覆盖答案，缺少依据时允许返回未找到，避免要求模型对每个问题都给出结论。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "java-concurrency-basics",
+    "title": "Java 并发笔记：线程池到底该如何配置",
+    "category": "backend",
+    "tags": [
+      "Java",
+      "并发编程"
+    ],
+    "publishedAt": "2026-09-29",
+    "readingMinutes": 8,
+    "featured": false,
+    "summary": "从核心线程数、任务队列和拒绝策略开始，理解线程池如何处理突发流量，以及为什么配置需要结合任务类型与运行指标。",
+    "content": "## 线程池是一组边界\n\n队列长度、线程数量和拒绝策略共同决定压力如何被消化。无界队列可能积累延迟，过多线程也可能让上下文切换成为负担。\n\n## 一个小例子\n\n```java\nvar executor = new ThreadPoolExecutor(\n    4, 8, 30, TimeUnit.SECONDS,\n    new ArrayBlockingQueue<>(100),\n    new ThreadPoolExecutor.AbortPolicy()\n);\n// 使用结束后调用 executor.shutdown();\n```\n\n## 用指标指导配置\n\n这里的数字只是示例。测量任务耗时、队列长度、活跃线程数和拒绝次数，结合 CPU 密集或 I/O 密集的特点调整；不要把某个公式当成所有服务的固定配置。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "react-paper-reading",
+    "title": "ReAct 阅读笔记：推理与行动如何交替进行",
+    "category": "papers",
+    "tags": [
+      "Agent",
+      "论文精读"
+    ],
+    "publishedAt": "2026-09-27",
+    "readingMinutes": 10,
+    "featured": false,
+    "summary": "沿着任务轨迹阅读 ReAct：理解推理、行动和环境反馈如何连接，并区分论文中的实验结论与具体应用中的工程边界。",
+    "content": "## 沿着任务轨迹阅读\n\n把每一步拆成推理、行动和观察。行动改变或查询环境，观察反馈进入后续决策。论文提供的是一种交替组织方式，不意味着任意任务都能稳定完成。\n\n## 一个小例子\n\n```text\n问题 → 推理 → 行动 → 环境反馈\n               ↑          ↓\n               └── 下一轮决策\n```\n\n## 区分方法与应用\n\n在应用中还需要工具契约、参数验证、执行上限和失败退出规则。论文里的基准结果不能直接替代你自己的任务评估。\n\n原文：[ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "spring-transaction",
+    "title": "Spring 事务：从代理机制理解失效场景",
+    "category": "backend",
+    "tags": [
+      "Spring Boot",
+      "数据库"
+    ],
+    "publishedAt": "2026-09-25",
+    "readingMinutes": 9,
+    "featured": false,
+    "summary": "从方法调用与代理边界入手，梳理自调用、异常处理和传播行为，避免只靠注解判断一个操作是否真的处在事务中。",
+    "content": "## 先确认代理边界\n\n声明式事务通常由代理拦截方法调用。一个对象内部直接调用自身方法时，调用不会因为方法上有注解就自动经过外部代理。\n\n## 一个小例子\n\n```java\n@Transactional\npublic void publishArticle(Article article) {\n    repository.save(article);\n    auditRepository.record(article.slug());\n}\n```\n\n## 检查异常与传播\n\n异常是否被吞掉、是否符合回滚规则、调用是否进入代理，都会影响结果。用一次可控失败验证数据库是否回滚，比只检查注解更可靠。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "agent-memory-design",
+    "title": "Agent 记忆设计：把上下文当作有限资源",
+    "category": "agent",
+    "tags": [
+      "Agent",
+      "上下文管理"
+    ],
+    "publishedAt": "2026-09-22",
+    "readingMinutes": 7,
+    "featured": false,
+    "summary": "短期上下文和长期存储各自承担什么职责？整理摘要、检索与遗忘策略，让记忆服务于当前任务，而不是无限堆积历史。",
+    "content": "## 区分上下文与存储\n\n上下文是当前推理可见的信息，长期存储是需要检索才能进入上下文的资料。把所有历史都塞进去会消耗预算，也可能让过期信息干扰任务。\n\n## 一个小例子\n\n```text\n当前任务 + 关键约束 + 最近状态\n               ↓\n       检索相关长期记录\n               ↓\n       生成受限的任务上下文\n```\n\n## 让记忆可以核查\n\n记录来源、时间和适用范围。摘要保留关键决策和未完成事项，发现冲突时先核查最新事实，不把历史推测升级成已验证结论。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "redis-cache-patterns",
+    "title": "Redis 缓存设计：一致性与失效策略",
+    "category": "backend",
+    "tags": [
+      "Redis",
+      "系统设计"
+    ],
+    "publishedAt": "2026-09-19",
+    "readingMinutes": 8,
+    "featured": false,
+    "summary": "以缓存旁路模式为起点，讨论更新数据库后如何处理缓存、如何设置过期时间，以及缓存穿透与击穿的不同应对思路。",
+    "content": "## 从旁路缓存开始\n\n读取时先查缓存，未命中再读数据库并回填；更新时先处理数据库，再让缓存失效。缓存是数据副本，需要明确允许的陈旧程度。\n\n## 一个小例子\n\n```text\n读取：缓存命中 → 返回\n      缓存未命中 → 数据库 → 回填\n更新：数据库写入成功 → 删除相关缓存\n```\n\n## 分别处理不同失败\n\n穿透关注不存在的数据请求，击穿关注热点过期瞬间的并发，雪崩关注大面积失效。空值缓存、请求合并与过期时间抖动解决的压力来源并不相同。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "lora-reading-notes",
+    "title": "LoRA 论文笔记：低秩更新究竟改变了什么",
+    "category": "papers",
+    "tags": [
+      "深度学习",
+      "论文精读"
+    ],
+    "publishedAt": "2026-09-16",
+    "readingMinutes": 10,
+    "featured": false,
+    "summary": "从权重增量的低秩分解理解参数高效微调，关注训练参数、合并推理和实验设定，避免把单个结果推广到所有任务。",
+    "content": "## 从增量权重开始\n\nLoRA 冻结原有权重，用两个较小矩阵表示可训练的增量。阅读时先标记矩阵的维度，再核对可训练参数数量。\n\n## 一个小例子\n\n```text\nW = W₀ + ΔW\nΔW = B × A\nA: r × k\nB: d × r\nr 远小于 min(d, k)\n```\n\n## 带着实验条件阅读\n\n低秩大小、插入模块、训练数据和目标任务都会影响效果。只训练少量参数不代表所有训练内存都等比例减少。\n\n原文：[LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "agent-evaluation",
+    "title": "Agent 评估：从“看起来能用”到可重复验证",
+    "category": "agent",
+    "tags": [
+      "Agent",
+      "评估"
+    ],
+    "publishedAt": "2026-09-13",
+    "readingMinutes": 8,
+    "featured": false,
+    "summary": "建立固定任务集，分别观察任务完成率、工具选择和执行成本；将模型随机性与工具故障分开记录，让改进有据可查。",
+    "content": "## 先固定任务与判定规则\n\n任务完成率要有明确的判定方法，例如搜索结果是否包含目标文档。除了最终答案，也记录工具选择、参数正确性、轮数和延迟。\n\n## 一个小例子\n\n```text\n任务 ID | 预期行为 | 实际结果 | 失败原因\n工具调用 | 参数有效性 | 耗时 | 状态\n```\n\n## 控制比较条件\n\n比较两个版本时使用同一任务集与工具环境。重复运行并记录波动，把工具故障、限流和模型判断错误分开统计。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "rest-api-design",
+    "title": "REST API 设计：分页、筛选与错误响应",
+    "category": "backend",
+    "tags": [
+      "Spring Boot",
+      "系统设计"
+    ],
+    "publishedAt": "2026-09-10",
+    "readingMinutes": 7,
+    "featured": false,
+    "summary": "整理文章列表 API 的参数约定、边界条件与响应结构，让前端可以明确处理加载、空结果和错误状态。",
+    "content": "## 约定参数的含义\n\n分页从 1 开始，页大小要有上限。日期范围包含起止日；多个标签是任一匹配还是全部匹配，需要明确写进接口文档。\n\n## 一个小例子\n\n```http\nGET /api/articles?category=backend&page=1&size=6\nGET /api/articles?q=Java&sort=newest\nGET /api/articles?from=2026-09-01&to=2026-09-30\n```\n\n## 让状态可以区分\n\n成功但无结果返回空 items 和 total=0，错误参数返回 400。前端分别展示加载、空结果和失败，而不是把失败都渲染成没有文章。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "paper-reading-workflow",
+    "title": "如何读一篇论文：问题、方法与证据",
+    "category": "papers",
+    "tags": [
+      "论文精读",
+      "研究方法"
+    ],
+    "publishedAt": "2026-09-07",
+    "readingMinutes": 6,
+    "featured": false,
+    "summary": "用一份简短阅读清单区分研究动机、方法贡献、实验支持和未解问题，让论文笔记可以被检索，也可以被后续实验复用。",
+    "content": "## 用四个问题组织笔记\n\n作者要解决什么问题？方法改变了哪个环节？实验支持了哪些结论？哪些条件仍然没有验证？先回答这些问题，再整理公式和实现细节。\n\n## 一个小例子\n\n```text\n问题与已有方法的不足\n核心机制与实现条件\n数据、基线和评价指标\n证据、局限与下一步实验\n```\n\n## 保留出处与不确定性\n\n为结论记录对应章节、图表或实验设置。把作者结论、自己的推断和待验证假设分别写清楚，复现尚未完成时不要先填入结果。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  },
+  {
+    "slug": "embedding-notes",
+    "title": "Embedding 学习笔记：向量相似不等于语义正确",
+    "category": "papers",
+    "tags": [
+      "向量检索",
+      "深度学习"
+    ],
+    "publishedAt": "2026-09-04",
+    "readingMinutes": 8,
+    "featured": false,
+    "summary": "从表示空间与相似度开始，记录向量检索中的距离指标、归一化与评价方法，关注数据和任务如何影响实际检索效果。",
+    "content": "## 先明确距离指标\n\n余弦相似度关注方向，点积也会受到向量长度影响。使用归一化时要确认索引与查询处理一致，避免把不同空间的向量混在同一个索引里。\n\n## 一个小例子\n\n```python\nimport numpy as np\n\ndef cosine(a, b):\n    denom = np.linalg.norm(a) * np.linalg.norm(b)\n    if denom == 0:\n        raise ValueError(\"零向量无法计算余弦相似度\")\n    return float(np.dot(a, b) / denom)\n```\n\n## 用任务衡量表示\n\n向量距离只能说明在所选表示空间中有多近。实际是否相关，仍需使用查询与相关性标注衡量，观察 Recall@K 等指标并阅读失败样例。\n\n## 实践记录\n\n- 写下输入条件与预期结果。\n- 运行最小例子并保存实际输出。\n- 检查边界情况，再扩展到自己的项目。\n\n> 本文为项目内置的学习示例，阅读时长为估算值。具体版本行为需要结合自己的运行环境验证。"
+  }
+]
