@@ -19,6 +19,7 @@
 
 ## 当前边界
 
-- 尚未创建 GitHub 仓库、运行远端 Actions 或实际发布公网地址；工作流仅完成本地配置准备。
+- 已创建公开仓库 https://github.com/hyg8888520/blog；GitHub Actions 构建及部署成功（https://github.com/hyg8888520/blog/actions/runs/37626383895）。
+- 公网首页 https://hyg8888520.github.io/blog/ 和直接打开的文章详情均已通过实际浏览器验证；详情刷新后仍显示正文。
 - 文章为演示内容，公开发布前请换成自己愿意公开的文章。网站没有投稿、编辑、登录、评论或写入接口。
 - 原 backend/ 仅保留先前源码，不参与当前启动和部署。
