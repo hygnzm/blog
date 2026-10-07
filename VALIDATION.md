@@ -19,8 +19,8 @@
 
 ## 当前边界
 
-- 已创建公开仓库 https://github.com/hyg8888520/blog；GitHub Actions 构建及部署成功（https://github.com/hyg8888520/blog/actions/runs/37626383895）。
-- 公网首页 https://hyg8888520.github.io/blog/ 和直接打开的文章详情均已通过实际浏览器验证；详情刷新后仍显示正文。
+- 已创建公开仓库 https://github.com/hygnzm/blog；GitHub Actions 构建及部署成功（https://github.com/hygnzm/blog/actions/runs/37626383895）。
+- 公网首页 https://hygnzm.github.io/blog/ 和直接打开的文章详情均已通过实际浏览器验证；详情刷新后仍显示正文。
 - 文章为演示内容，公开发布前请换成自己愿意公开的文章。网站没有投稿、编辑、登录、评论或写入接口。
 - 原 backend/ 仅保留先前源码，不参与当前启动和部署。
 
@@ -47,3 +47,10 @@
 - 交互示例的计算代码一致。SVG 图的节点、坐标、尺寸与数值一致，只修改操作说明。
 - 四篇实际页面检查通过，标题、配图和交互示例正常显示，页面没有横向溢出。修改说明的四张 SVG 图中文字均位于画布内。
 - 最终版本的 6 项内容检查全部通过，正式构建成功。
+
+## 最新公网发布
+
+- 最新源码提交：09c6934；构建的 6 项测试全部通过。
+- 部署成功：https://github.com/hygnzm/blog/actions/runs/37644746867 。
+- 实际公网首页显示 17 篇文章；Transformer 正文、3 个交互模块与配图大图已检查，详情刷新正常。
+

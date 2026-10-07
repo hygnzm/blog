@@ -32,7 +32,7 @@ npm.cmd run preview
 
 构建先验证文章与筛选逻辑，再生成 frontend/dist。正式构建预览地址为 http://127.0.0.1:4173/ 。
 
-GitHub Pages 的准备配置已放在 .github/workflows/pages.yml。上传源码至公开仓库的 main 分支，在 Settings → Pages 选择 GitHub Actions，运行工作流即可发布。详细步骤与文章更新方法见 [DEPLOYMENT.md](DEPLOYMENT.md)。已于 2026-10-07 发布：[公网博客](https://hyg8888520.github.io/blog/) · [源码仓库](https://github.com/hyg8888520/blog)。
+GitHub Pages 的准备配置已放在 .github/workflows/pages.yml。上传源码至公开仓库的 main 分支，在 Settings → Pages 选择 GitHub Actions，运行工作流即可发布。详细步骤与文章更新方法见 [DEPLOYMENT.md](DEPLOYMENT.md)。已于 2026-10-07 发布：[公网博客](https://hygnzm.github.io/blog/) · [源码仓库](https://github.com/hygnzm/blog)。
 
 ## 内容与结构
 
