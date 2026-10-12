@@ -1,5 +1,7 @@
 # GitHub Pages 静态发布
 
+> 当前默认版本已改为 Vue + Spring Boot，阿里云部署见 `deploy/aliyun/README.md`。本文件仅记录此前 GitHub Pages 静态模式；该模式现在使用 `npm run build:static`。
+
 当前博客完全从打包后的文章文件读取内容。访客可以阅读、搜索、筛选和翻页，没有登录、投稿、评论或在线编辑入口；不需要 Java、Spring Boot 或数据库。
 
 ## 第一次发布

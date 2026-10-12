@@ -54,3 +54,20 @@
 - 部署成功：https://github.com/hygnzm/blog/actions/runs/37644746867 。
 - 实际公网首页显示 17 篇文章；Transformer 正文、3 个交互模块与配图大图已检查，详情刷新正常。
 
+
+## 2026-10-12 前后端分离
+- 默认前端通过 /api 读取后端，正式构建不嵌入文章正文。
+- 前端 6 项内容检查通过，Spring Boot 6 项 API 测试通过，JAR 打包成功。
+- 本地实际浏览器显示 17 篇文章，Transformer 详情刷新、3 个交互例子和配图大图正常；控制台无错误。
+- 阿里云 Nginx 与 systemd 配置已准备，尚未在服务器上安装或部署。
+
+
+## 2026-10-12 阿里云实际部署
+- 通过 Workbench CLI 部署实例 i-f8z42mfqmawjwweho6om，地域 cn-heyuan，公网 8.155.134.37。
+- 本地生成的前端与 Spring Boot JAR 已上传，Java 21 运行环境通过官方 SHA-256 校验。
+- nginx 和 code-notes 服务均为 active、enabled；后端以 codeblog 用户运行并仅监听 127.0.0.1:8080。
+- 已添加安全组 sg-f8zgwduh6i3is7zimzvm 的 TCP 80 入方向规则，原规则保持不变；变更请求 01A1302E-000F-5882-82F2-4630F9FE518E。
+- 公网 http://8.155.134.37/api/health 返回 HTTP 200 和 status=ok。
+- 实际公网页面显示 17 篇文章，RAG 搜索返回 1 篇，正文刷新与配图大图正常，控制台无错误。
+- 当前为 HTTP/IP 访问，未配置域名与 HTTPS；原宝塔面板保持运行。
+

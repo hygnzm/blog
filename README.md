@@ -1,55 +1,45 @@
-# 码间 · 技术博客（静态浏览版）
+# 码间 · 技术博客（Vue 3 + Spring Boot）
 
-Vue 3 技术博客，按后端学习、Agent 学习、论文学习、求职经历展示文章。保留搜索、标签与日期筛选、排序、分页、Markdown 详情以及手机布局。所有文章随网站打包，访客只能浏览，没有登录、投稿或在线修改功能。
+当前默认版本采用前后端分离：Vue 展示文章及论文交互模块，Spring Boot 提供文章列表、筛选、分类统计和详情 API。访客只能浏览，没有登录、投稿或在线编辑功能。
 
-当前版本只需要 Node.js 22，开发和部署均无需 Spring Boot、数据库或 JDK。旧 backend 目录作为先前版本源码保留，不参与当前启动、构建和发布。
+## 本地开发
 
-## 本地启动
+需要 Node.js 22 和 JDK 21。在项目根目录双击 start.cmd，或运行：
 
-双击 start.cmd，或在项目根目录运行：
-
-~~~powershell
+```powershell
 powershell -ExecutionPolicy Bypass -File .\start.ps1
-~~~
+```
 
-打开 http://127.0.0.1:5173/ 。双击 stop.cmd 停止本项目记录的进程。日志位于 .run/。启动脚本不会启动后端，也不会终止其他项目进程。
+页面：http://127.0.0.1:5173/ 。API：http://127.0.0.1:8080/api/health 。stop.cmd 停止本项目进程。前端通过 Vite 代理访问 API；start.ps1 导出文章，在需要时构建 JAR，并启动前后端。
 
-也可以直接启动前端：
+## 构建与阿里云部署
 
-~~~powershell
-cd F:\idea\blog\frontend
-npm.cmd ci
-npm.cmd run dev
-~~~
+```powershell
+npm.cmd --prefix frontend run export:backend
+npm.cmd --prefix frontend run build
+cd backend
+$env:JAVA_HOME = 'C:\Program Files\Java\jdk-21'
+.\mvnw.cmd -B package
+```
 
-## 构建与发布
+前端输出 frontend/dist，后端输出 backend/target/blog-backend-1.0.0.jar。阿里云服务器用 Nginx 提供前端页面，将 /api 转发至本机 Spring Boot。服务端只需要 Nginx 与 Java 21。
 
-~~~powershell
-cd F:\idea\blog\frontend
-npm.cmd run build
-npm.cmd run preview
-~~~
+部署配置与逐步操作见 [deploy/aliyun/README.md](deploy/aliyun/README.md)。已于 2026-10-12 部署至阿里云：[打开前后端分离版博客](http://8.155.134.37/)。Nginx 与 Spring Boot 已设置开机启动。
 
-构建先验证文章与筛选逻辑，再生成 frontend/dist。正式构建预览地址为 http://127.0.0.1:4173/ 。
+## 内容与接口
 
-GitHub Pages 的准备配置已放在 .github/workflows/pages.yml。上传源码至公开仓库的 main 分支，在 Settings → Pages 选择 GitHub Actions，运行工作流即可发布。详细步骤与文章更新方法见 [DEPLOYMENT.md](DEPLOYMENT.md)。已于 2026-10-07 发布：[公网博客](https://hygnzm.github.io/blog/) · [源码仓库](https://github.com/hygnzm/blog)。
+- frontend/src/content/articles.json 和 papers/*.md：文章编辑源，包含 17 篇笔记。
+- frontend/scripts/export-backend.mjs：校验并将完整正文导出至 backend/src/main/resources/articles.json，供 Spring Boot 打包读取。
+- backend/src/main/java/dev/notebook/blog/：只读 REST API，暂不需要数据库。
+- frontend/src/content/index.js：默认通过 HTTP 请求后端数据，生产前端不嵌入文章正文。
+- frontend/src/components/：Markdown 展示、图片大图与论文交互例子。
+- frontend/public/images/papers/：教学配图，随前端部署。
+- deploy/aliyun/：Nginx 配置、systemd 服务和部署说明。
 
-## 内容与结构
+接口为 GET /api/health、GET /api/metadata、GET /api/articles、GET /api/articles/{slug}。搜索、分类、标签、日期、分页与排序由后端执行。
 
-- frontend/src/content/articles.json：文章元数据；目前共 17 篇，含 13 篇内置学习示例和 4 篇根据阅读对话整理的论文笔记。
-- frontend/src/content/papers/：BDI、DQN、Transformer 和 RAG 的 Markdown 正文，修改后随网站打包。
-- frontend/public/images/papers/：9 张论文教学配图，正文中可以点开放大。
-- frontend/src/components/：文章展示与 Transformer 的注意力、目标对齐、位置编码交互例子。
-- frontend/src/content/library.js：分类说明、文章校验、搜索、筛选、排序和分页。
-- frontend/src/content/index.js：读取打包内容，不请求远程 API。
-- frontend/src/App.vue：列表与详情界面。
-- frontend/src/style.css：字号、样式与响应式布局。
-- frontend/tests/content.test.js：内容与筛选行为检查，构建时自动运行。
-- .github/workflows/pages.yml：GitHub Pages 自动发布。
-- backend/：先前 Spring Boot 版本的保留源码，当前不用。
+更新文章后重新导出并构建后端，替换 JAR，再重启服务。更新前端页面则重新构建前端并上传 dist。
 
-新增文章编辑 frontend/src/content/articles.json；分类使用 backend、agent、papers、career。短文可使用 content 字段；长文可使用 contentFile 指向 papers/ 下的 Markdown 文件。标签和文章数量自动统计。品牌在 App.vue 中修改。
+## 已有 GitHub Pages
 
-部署只上传构建结果，网站没有写入接口。访客仍可读取和下载公开内容；源码是否可写取决于你的 GitHub 仓库权限。
-
-布局参考：[美团校园招聘](https://career.meituan.com/web/campus)。部署参考：[Vite 官方文档](https://vite.dev/guide/static-deploy.html#github-pages)。
+此前公开站点 https://hygnzm.github.io/blog/ 是独立静态浏览版本。保留明确的 npm run build:static 模式与 Pages 工作流以便继续维护该站点；阿里云使用默认 npm run build 的 API 版本。GitHub Pages 本身不能运行 Spring Boot。此前静态发布方法保留在 DEPLOYMENT.md。
