@@ -95,6 +95,6 @@ sudo journalctl -u code-notes -n 100 --no-pager
 
 更新文章：修改本地 JSON/Markdown，重新导出并构建后端，替换服务器 JAR 后运行 `sudo systemctl restart code-notes`。更新前端：重新构建并替换前端文件，保持前后端来自同一版本。
 
-实际部署目录为 `/opt/code-notes/frontend`、`/opt/code-notes/backend` 和 `/opt/code-notes/runtime`。服务为 `nginx` 与 `code-notes`，均已开机自启。阿里云安全组已补充 TCP 80 入方向规则；后端保持 127.0.0.1:8080。原宝塔面板保持运行。当前使用 IP 的 HTTP 访问，域名与 HTTPS 尚未配置。
+实际部署目录为 `/opt/code-notes/frontend`、`/opt/code-notes/backend` 和 `/opt/code-notes/runtime`。服务为 `nginx` 与 `code-notes`，均已开机自启。安全组与防火墙已允许 TCP 80、443；后端保持 127.0.0.1:8080。原宝塔面板保持运行。公网 https://8.155.134.37/ 已验证可用，IP 证书与自动续期见 [HTTPS.md](HTTPS.md)。域名状态见 [domain-status.md](domain-status.md)。首次安装仍使用 HTTP 配置，获得证书后才使用 blog-https.conf。
 
 参考：[阿里云 OpenJDK 安装](https://help.aliyun.com/zh/ecs/user-guide/manually-deploy-openjdk)、[OpenJDK 扩展安装](https://help.aliyun.com/zh/ecs/user-guide/install-openjdk-through-extensions)、[阿里云 Nginx 部署](https://help.aliyun.com/zh/ecs/user-guide/deploy-the-lnmp-environment)。

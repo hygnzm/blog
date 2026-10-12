@@ -71,3 +71,10 @@
 - 实际公网页面显示 17 篇文章，RAG 搜索返回 1 篇，正文刷新与配图大图正常，控制台无错误。
 - 当前为 HTTP/IP 访问，未配置域名与 HTTPS；原宝塔面板保持运行。
 
+## 2026-10-12 HTTPS 实际部署
+- https://8.155.134.37/ 已启用 Nginx 443 与 Let's Encrypt IP 证书，TLS SAN 为 8.155.134.37。
+- Windows 默认信任校验的公网请求返回 HTTP 200、ssl_verify_result=0，健康接口 status=ok；没有使用跳过校验选项。
+- 浏览器 HTTPS 首页 17 篇文章与 Transformer 详情正常，控制台无错误。
+- code-notes-acme.timer active、enabled，每日两次检查；首次检查成功并按续期时间跳过。重载脚本验证成功，尚未观察自然续期周期。
+- 本次证书到期 2026-10-19 14:19:07（北京时间），自动续期配置、权限及运维步骤见 deploy/aliyun/HTTPS.md。
+

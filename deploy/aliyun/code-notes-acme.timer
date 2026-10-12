@@ -1,0 +1,11 @@
+[Unit]
+Description=Check Code Notes IP certificate twice daily
+
+[Timer]
+OnCalendar=*-*-* 00,12:00:00
+RandomizedDelaySec=30m
+Persistent=true
+Unit=code-notes-acme.service
+
+[Install]
+WantedBy=timers.target

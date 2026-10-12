@@ -1,0 +1,10 @@
+[Unit]
+Description=Renew Code Notes public IP TLS certificate
+Wants=network-online.target
+After=network-online.target nginx.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/code-notes/acme/bin/renew-ip-certificate.sh
+UMask=0022
+TimeoutStartSec=300
