@@ -24,11 +24,11 @@ $env:JAVA_HOME = 'C:\Program Files\Java\jdk-21'
 
 前端输出 frontend/dist，后端输出 backend/target/blog-backend-1.0.0.jar。阿里云服务器用 Nginx 提供前端页面，将 /api 转发至本机 Spring Boot。服务端只需要 Nginx 与 Java 21。
 
-部署配置与逐步操作见 [deploy/aliyun/README.md](deploy/aliyun/README.md)。已于 2026-10-12 部署至阿里云：[打开前后端分离版博客](http://8.155.134.37/)。Nginx 与 Spring Boot 已设置开机启动。
+部署配置与逐步操作见 [deploy/aliyun/README.md](deploy/aliyun/README.md)。已部署至阿里云：[打开前后端分离版博客](https://8.155.134.37/)。Nginx 与 Spring Boot 已设置开机启动，IP 证书已配置自动续期。
 
 ## 内容与接口
 
-- frontend/src/content/articles.json 和 papers/*.md：文章编辑源，包含 17 篇笔记。
+- frontend/src/content/articles.json、papers/*.md 和 java/*.md：文章编辑源，包含 19 篇笔记。两篇 Java 笔记位于后端学习分类，共用 Java、Java基础 标签。
 - frontend/scripts/export-backend.mjs：校验并将完整正文导出至 backend/src/main/resources/articles.json，供 Spring Boot 打包读取。
 - backend/src/main/java/dev/notebook/blog/：只读 REST API，暂不需要数据库。
 - frontend/src/content/index.js：默认通过 HTTP 请求后端数据，生产前端不嵌入文章正文。

@@ -1,7 +1,7 @@
 import articles from "./articles.json";
 import { createLibrary } from "./library.js";
 import { resolveArticleSources } from "./sources.js";
-const markdownSources = import.meta.glob("./papers/*.md", { query: "?raw", import: "default", eager: true });
+const markdownSources = import.meta.glob(["./papers/*.md", "./java/*.md"], { query: "?raw", import: "default", eager: true });
 const library = createLibrary(resolveArticleSources(articles, markdownSources));
 export async function getStaticContent(path, params = {}, signal) {
   signal?.throwIfAborted();

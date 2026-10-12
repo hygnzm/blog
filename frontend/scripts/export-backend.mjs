@@ -4,8 +4,10 @@ import { createLibrary } from "../src/content/library.js";
 const contentRoot = new URL("../src/content/", import.meta.url);
 const articles = JSON.parse(await readFile(new URL("articles.json", contentRoot), "utf8"));
 const sources = {};
-for (const file of await readdir(new URL("papers/", contentRoot))) {
-  if (file.endsWith(".md")) sources[`./papers/${file}`] = await readFile(new URL(`papers/${file}`, contentRoot), "utf8");
+for (const directory of ["papers", "java"]) {
+  for (const file of await readdir(new URL(`${directory}/`, contentRoot))) {
+    if (file.endsWith(".md")) sources[`./${directory}/${file}`] = await readFile(new URL(`${directory}/${file}`, contentRoot), "utf8");
+  }
 }
 const resolved = resolveArticleSources(articles, sources);
 createLibrary(resolved);

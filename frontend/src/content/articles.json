@@ -1,5 +1,36 @@
 [
   {
+    "slug": "java-keywords-generics",
+    "title": "Java 关键字与泛型",
+    "category": "backend",
+    "tags": [
+      "Java",
+      "Java基础",
+      "泛型"
+    ],
+    "publishedAt": "2026-10-13",
+    "readingMinutes": 15,
+    "featured": false,
+    "summary": "通过完整示例区分访问控制、final、static、内部类与泛型，说明 List<Emp> 和 Emp 对象分别能做什么。每个知识小节都有“几句话看懂”。",
+    "contentFile": "java/java-keywords-generics.md"
+  },
+  {
+    "slug": "java-reflection-annotations",
+    "title": "Java 反射与注解",
+    "category": "backend",
+    "tags": [
+      "Java",
+      "Java基础",
+      "反射",
+      "注解"
+    ],
+    "publishedAt": "2026-10-13",
+    "readingMinutes": 16,
+    "featured": false,
+    "summary": "用完整代码学习 Class、构造方法、方法和字段，再定义、读取注解并实现字段校验。每个知识小节先用“几句话看懂”概括，示例按 JDK 21 验证。",
+    "contentFile": "java/java-reflection-annotations.md"
+  },
+  {
     "slug": "spring-boot-first-api",
     "title": "从零搭建 Spring Boot：你的第一个 RESTful API",
     "category": "backend",

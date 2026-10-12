@@ -16,10 +16,10 @@ class BlogApiTest {
 
     @Test void paginatesWithoutLeakingFullContent() throws Exception {
         mvc.perform(get("/api/articles")).andExpect(status().isOk())
-            .andExpect(jsonPath("$.total").value(17)).andExpect(jsonPath("$.items", hasSize(6)))
-            .andExpect(jsonPath("$.totalPages").value(3))
+            .andExpect(jsonPath("$.total").value(19)).andExpect(jsonPath("$.items", hasSize(6)))
+            .andExpect(jsonPath("$.totalPages").value(4))
             .andExpect(jsonPath("$.items[0].content").doesNotExist());
-        mvc.perform(get("/api/articles").param("page", "3")).andExpect(jsonPath("$.items", hasSize(5)));
+        mvc.perform(get("/api/articles").param("page", "4")).andExpect(jsonPath("$.items", hasSize(1)));
     }
     @Test void combinesCategoryTagKeywordAndInclusiveDates() throws Exception {
         mvc.perform(get("/api/articles").param("category", "backend").param("tags", "Java")
@@ -31,7 +31,7 @@ class BlogApiTest {
         mvc.perform(get("/api/articles").param("category", "backend").param("tags", "MySQL", "Redis"))
             .andExpect(jsonPath("$.total").value(2));
         mvc.perform(get("/api/metadata").param("category", "papers")).andExpect(status().isOk())
-            .andExpect(jsonPath("$.total").value(17))
+            .andExpect(jsonPath("$.total").value(19))
             .andExpect(jsonPath("$.tags[*].name", not(hasItem("Java"))));
     }
     @Test void returnsRealDetailAnd404() throws Exception {
@@ -50,6 +50,20 @@ class BlogApiTest {
         mvc.perform(get("/api/articles").param("page", "0")).andExpect(status().isBadRequest());
         mvc.perform(get("/api/articles").param("sort", "unknown")).andExpect(status().isBadRequest());
         mvc.perform(get("/api/metadata").param("category", "unknown")).andExpect(status().isBadRequest());
+    }
+    @Test void publishesBothJavaNotesWithCompleteCodeAndSharedTags() throws Exception {
+        mvc.perform(get("/api/articles").param("category", "backend").param("tags", "Java基础"))
+            .andExpect(status().isOk()).andExpect(jsonPath("$.total").value(2))
+            .andExpect(jsonPath("$.items[*].tags[*]", hasItem("Java")));
+        mvc.perform(get("/api/articles/java-reflection-annotations"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.content", containsString("class ReflectionDemo")))
+            .andExpect(jsonPath("$.content", containsString("class ValidationDemo")))
+            .andExpect(jsonPath("$.content", containsString("几句话看懂")));
+        mvc.perform(get("/api/articles/java-keywords-generics"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.content", containsString("class GenericBoxDemo")))
+            .andExpect(jsonPath("$.tags", hasItems("Java", "Java基础")));
     }
     @Test void handlesEmptyResultsAndOldestSorting() throws Exception {
         mvc.perform(get("/api/articles").param("q", "missing-keyword")).andExpect(status().isOk())

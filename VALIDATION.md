@@ -78,3 +78,12 @@
 - code-notes-acme.timer active、enabled，每日两次检查；首次检查成功并按续期时间跳过。重载脚本验证成功，尚未观察自然续期周期。
 - 本次证书到期 2026-10-19 14:19:07（北京时间），自动续期配置、权限及运维步骤见 deploy/aliyun/HTTPS.md。
 
+## 2026-10-13 Java 笔记补全与发布
+- 根据用户的两份 Markdown 及补充参考文档，补全反射、注解、访问控制、final、static、内部类和泛型。知识深度限定在常用 API 与基本原理，代码使用分步操作，避免 Stream 和链式调用。
+- 22 个知识小节开头增加“几句话看懂”，两篇均属于 backend 分类，带 Java、Java基础 标签；博客共 19 篇。
+- 提取全部 20 个 Java 源文件，在 JDK 21.0.6 下编译并运行 19 个程序，输出逐项与正文比对通过。
+- 前端 6 项内容检查、API 与静态两种构建通过；Spring Boot 7 项接口测试及 JAR 打包通过。
+- 已替换阿里云实例 i-f8z42mfqmawjwweho6om 的后端 JAR；SHA-256 为 098d447604485a54e57ee30078aa12ec6a892ac96e3929202eadc143afdb7031。
+- 旧 JAR 保留于 /opt/code-notes/releases/20261013-java-notes/previous-backend.jar。Nginx、后端、证书续期定时器均 active。
+- HTTPS 公网首页显示 19 篇；Java基础 标签实际筛选返回两篇，正文与代码排版已在浏览器检查。公网接口检查两篇完整正文及 12 / 10 个知识小结。
+
